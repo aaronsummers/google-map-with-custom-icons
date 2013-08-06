@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Google Map Api</title>
+</head>
+
+<body onLoad="initialize();"> <!-- Initialize the MAP -->
+
+  	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3.9"></script> <!-- Use version 3.9 || Cusom icon friendly -->
+		<script type="text/javascript">
+		function initialize() {
+				
+				/*======================================================
+				MAP CENTRE POINT || http://itouchmap.com/latlong.html 
+				========================================================*/
+				var latlng = new google.maps.LatLng(51.521147,-0.132062); /* Center the map here */
+				
+				var settings = {
+					zoom: 16,
+					center: latlng,
+					mapTypeControl: true,
+					mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+					navigationControl: true,
+					navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+					mapTypeId: google.maps.MapTypeId.ROADMAP};
+				var map = new google.maps.Map(document.getElementById("map_canvas"), settings);
+	
+				/*======================================================
+				INFORMATION POP-UP BOX
+				========================================================*/
+			
+				var contentPOPUP = 	'<div id="map-popup">'+
+							'<h6>ENTER YOUR TITLE</h6>'+
+							'<p>Include other information</p>'+
+							'</div>';
+				var MAPinfowindow = new google.maps.InfoWindow({
+					content: contentPOPUP
+				});
+			
+				
+				/*======================================================
+				LOCATION || http://itouchmap.com/latlong.html 
+				========================================================*/
+				
+				var MAPposition = new google.maps.LatLng(51.521147,-0.132062); /* This is our location for the pin */
+				
+				var MAPimage = new google.maps.MarkerImage('img/maplogo.png',/* location of the map pin */
+					 new google.maps.Size(50, 55),
+					 new google.maps.Point(0,0),
+					 new google.maps.Point(23, 75)
+				);
+
+				var MAPshadow = new google.maps.MarkerImage('img/shadow.png', /* location of the shadow for the pin */
+					new google.maps.Size(70,50),
+					new google.maps.Point(0,0),
+					new google.maps.Point(65, 48));
+
+				var city = new google.maps.Marker({
+					position: MAPposition,
+					map: map,
+					icon: MAPimage,
+					shadow: MAPshadow,
+					animation: google.maps.Animation.DROP,
+					title:"ADD YOUR TITLE",
+					zIndex: 1
+					});
+					
+				google.maps.event.addListener(city, 'click', function() {
+					MAPinfowindow.open(map,city);
+				});				
+			}
+		</script>
+	
+		<p id="map_canvas" style="width:100%; height:400px;"><!-- DISPLAY THE MAP WITH id="map_canvas" --></p>
+      
+    </article>
+</section>
+
+</body>
+</html>
